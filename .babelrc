@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "@babel/preset-env", // es6
+    "@babel/preset-react" // react 支持 jsx等
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties", // class this问题
+    [
+      "import", // antd 按需加载
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true
+      }
+    ]
+  ]
+}
