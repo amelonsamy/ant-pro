@@ -66,3 +66,18 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+### 项目结构
+
+###项目配置
+react+antd+react-router+redux
+基础框架 react
+ui框架 antd
+路由管理 react-router
+数据管理 redux
+
+目录结构及功能仿照ant-pro
+
+
+

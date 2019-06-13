@@ -97,7 +97,8 @@ module.exports = function(webpackEnv) {
       loaders.push({
         loader: require.resolve(preProcessor),
         options: {
-          sourceMap: isEnvProduction && shouldUseSourceMap
+          sourceMap: isEnvProduction && shouldUseSourceMap,
+          javascriptEnabled:true
         }
       });
     }
@@ -395,18 +396,43 @@ module.exports = function(webpackEnv) {
             // Opt-in support for less
             // By default we support less Modules with the
             // Adds support for CSS Modules, but using less
+            // less
             {
               test: /\.less$/,
+              exclude: /node_modules/,
               use: getStyleLoaders(
-                {
-                  importLoaders: 2,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modules: true,
-                  getLocalIdent: getCSSModuleLocalIdent
-                },
-                'less-loader'
-              )
-            },
+                  {
+                      importLoaders: 2,
+                      sourceMap: isEnvProduction && shouldUseSourceMap,
+                      modules: true,
+                      getLocalIdent: getCSSModuleLocalIdent,
+                  },
+                  'less-loader'
+              ),
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true
+          },
+          // less antd 避免css modules
+          {
+              test: /\.less$/,
+              include: /node_modules/,
+              use: getStyleLoaders(
+                  {
+                      importLoaders: 2,
+                      sourceMap: isEnvProduction && shouldUseSourceMap,
+                      getLocalIdent: getCSSModuleLocalIdent,
+                  },
+                  'less-loader'
+              ),
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true
+          },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
