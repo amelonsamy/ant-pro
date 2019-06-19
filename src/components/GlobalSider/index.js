@@ -3,6 +3,8 @@ import { Layout, Menu, Icon } from 'antd';
 
 import menuData from '../../common/menu';
 
+import styles from './index.less';
+
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -34,9 +36,9 @@ renderSubMenu = (item, index) => {
 }
 render() {
   return (
-    <Sider>
-      <div className="logo"/>
-      <Menu>
+    <Sider trigger={null} collapsible>
+      <div className={styles.logo} />
+      <Menu theme="dark" mode="inline">
         {
           menuData.map((item, index) => {
             if(item.children) {
