@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Switch } from 'react-router';
+import React, {Suspense, Fragment, lazy} from 'react';
+import { Route, Switch, Redirect } from 'react-router';
 
 import { Layout, Menu } from 'antd';
 
@@ -12,8 +12,10 @@ import routerConfig from '../common/router';
 
 const { Header, Sider, Content } = Layout;
 
+
 export default class BasicLayout extends React.Component {
   render() {
+    console.log(routerConfig)
     return (
       <div>
         <Layout>
@@ -23,13 +25,15 @@ export default class BasicLayout extends React.Component {
               <GlobalHeader/>
             </Header>
             <Content style={{ padding: '24', minHeight: '520px'}}>
-              <Switch>
-                {
-                  routerConfig.map((routes, i) => (
-                    <Route path={routes.path} component={routes.component}/>
-                  ))
-                }
-              </Switch>
+              <Suspense fallback={<Fragment />}>
+                <Switch>
+                  {
+                    routerConfig.map((routes, i) => (
+                      <Route key={routes.path} path={routes.path} component={routes.component}/>
+                    ))
+                  }
+                </Switch>
+              </Suspense>
             </Content>
           </Layout>
         </Layout>

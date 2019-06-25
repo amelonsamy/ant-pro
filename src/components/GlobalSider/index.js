@@ -1,7 +1,8 @@
 import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
-import menuData from '../../common/menu';
+import { getMenuData } from '../../common/menu';
 
 import styles from './index.less';
 
@@ -25,8 +26,10 @@ renderSubMenu = (item, index) => {
         item.children.map((value, i) => {
           return (
             <Menu.Item key={i}>
-              <Icon type={value.icon}/>
-              <span>{value.name}</span>
+              <Link to={value.path}>
+                <Icon type={value.icon}/>
+                <span>{value.name}</span>
+              </Link>
             </Menu.Item>
           )
         })
@@ -38,16 +41,22 @@ render() {
   return (
     <Sider trigger={null} collapsible>
       <div className={styles.logo} />
-      <Menu theme="dark" mode="inline">
+      <Menu
+        theme="dark"
+        mode="inline"
+        defaultSelectedKeys={['0']}
+      >
         {
-          menuData.map((item, index) => {
+          getMenuData().map((item, index) => {
             if(item.children) {
               return this.renderSubMenu(item, index)
             }
             return (
               <Menu.Item>
-                <Icon type={item.icon}/>
-                <span>{item.name}</span>
+                <Link to={item.path}>
+                  <Icon type={item.icon}/>
+                  <span>{item.name}</span>
+                </Link>
               </Menu.Item>
             )
           })
