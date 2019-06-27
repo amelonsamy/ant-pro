@@ -15,7 +15,6 @@ const { Header, Sider, Content } = Layout;
 
 export default class BasicLayout extends React.Component {
   render() {
-    console.log(routerConfig)
     return (
       <div>
         <Layout>
@@ -27,11 +26,13 @@ export default class BasicLayout extends React.Component {
             <Content style={{ padding: '24', minHeight: '520px'}}>
               <Suspense fallback={<Fragment />}>
                 <Switch>
+
                   {
                     routerConfig.map((routes, i) => (
                       <Route key={routes.path} path={routes.path} component={routes.component}/>
                     ))
                   }
+                  <Redirect to="/dashboard/analysis" />
                 </Switch>
               </Suspense>
             </Content>

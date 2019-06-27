@@ -15,13 +15,14 @@ export default class GlobalSider extends React.PureComponent {
 renderSubMenu = (item, index) => {
   return (
     <SubMenu
+      key={`sub${index}`}
       title={
         <span>
           <Icon type={item.icon} />
           <span>{item.name}</span>
         </span>
       }
-      key={index}>
+    >
       {
         item.children.map((value, i) => {
           return (
@@ -45,6 +46,7 @@ render() {
         theme="dark"
         mode="inline"
         defaultSelectedKeys={['0']}
+        defaultOpenKeys={['sub0']}
       >
         {
           getMenuData().map((item, index) => {
